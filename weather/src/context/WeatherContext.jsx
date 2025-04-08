@@ -18,7 +18,7 @@ export const WeatherProvider = ({ children }) => {
   }, [favorites]);
 
   const fetchWeather = async (city) => {
-    const apiKey = "6bde73cfdea3d5a41320fdf646855c85"; 
+    const apiKey = "6bde73cfdea3d5a41320fdf646855c85";
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
@@ -31,7 +31,13 @@ export const WeatherProvider = ({ children }) => {
   };
 
   const addFavorite = (city) => {
-    if (!favorites.includes(city)) setFavorites([...favorites, city]);
+    if (!favorites.includes(city)) {
+      setFavorites([...favorites, city]);
+    }
+  };
+
+  const removeFavorite = (city) => {
+    setFavorites(favorites.filter((fav) => fav.toLowerCase() !== city.toLowerCase()));
   };
 
   const contextValue = {
@@ -40,6 +46,7 @@ export const WeatherProvider = ({ children }) => {
     weatherData,
     favorites,
     addFavorite,
+    removeFavorite,
     fetchWeather,
   };
 
